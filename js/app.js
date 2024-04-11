@@ -11,6 +11,26 @@ const App = {
     moves: [],
   },
 
+  getGameStatus(moves) {
+    const p1Moves = moves.filter((move) => move.playerId === 1);
+    const p2Moves = moves.filter((move) => move.playerId === 2);
+
+    const winningPatterns = [
+      [1, 2, 3],
+      [1, 5, 9],
+      [1, 4, 7],
+      [2, 5, 8],
+      [3, 5, 7],
+      [3, 6, 9],
+      [4, 5, 6],
+      [7, 8, 9],
+    ];
+    return {
+      status: "in-progress ",
+      winner: 1, //in-progress | complete
+    };
+  },
+
   init() {
     App.registerEventListeners();
   },
@@ -68,17 +88,6 @@ const App = {
         App.state.currentPlayer = App.state.currentPlayer === 1 ? 2 : 1;
         console.log(App.state);
         square.replaceChildren(icon);
-
-        const winningPatterns = [
-          [1, 2, 3],
-          [1, 5, 9],
-          [1, 4, 7],
-          [2, 5, 8],
-          [3, 5, 7],
-          [3, 6, 9],
-          [4, 5, 6],
-          [7, 8, 9],
-        ];
       });
     });
   },
