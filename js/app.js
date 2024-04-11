@@ -1,13 +1,16 @@
-const menu = document.querySelector(".menu");
-const menuItems = document.querySelector(".items");
-
-
 const App = {
-    //All of our selected HTML elements
-$:{
+  $: {
+    menu: document.querySelector('[data-id="menu"]'),
+    menuItems: document.querySelector('[data-id="menu-items"]'),
+    resetBtn: document.querySelector('[data-id="reset-btn"]'),
+    newRoundBtn: document.querySelector('[data-id="new-round-btn"]'),
+  },
 
-}
-}
-menu.addEventListener("click", (event) => {
-  menuItems.classList.toggle("hidden");
-});
+  init() {
+    App.$.menu.addEventListener("click", (e) => {
+      App.$.menuItems.classList.toggle("hidden");
+    });
+  },
+};
+
+window.addEventListener("load", App.init);
