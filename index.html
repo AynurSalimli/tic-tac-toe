@@ -38,11 +38,8 @@
           </div>
         </div>
         <!-- Game board -->
-        <div id="1" class="square shadow" data-id="square">
-        </div>
-        <div id="2" class="square shadow" data-id="square">
-
-        </div>
+        <div id="1" class="square shadow" data-id="square"></div>
+        <div id="2" class="square shadow" data-id="square"></div>
         <div id="3" class="square shadow" data-id="square"></div>
         <div id="4" class="square shadow" data-id="square"></div>
         <div id="5" class="square shadow" data-id="square"></div>
@@ -67,10 +64,10 @@
       </div>
     </main>
     <!-- Modal that opens when game ends -->
-    <div class="modal hidden">
+    <div class="modal hidden" data-id="modal">
       <div class="modal-contents">
-        <p>Player 1 wins</p>
-        <button>Play again</button>
+        <p data-id="modal-text">Player 1 wins</p>
+        <button data-id="modal-btn">Play again</button>
       </div>
     </div>
 

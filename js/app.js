@@ -1,4 +1,5 @@
 const App = {
+    
   $: {
     menu: document.querySelector('[data-id="menu"]'),
     menuItems: document.querySelector('[data-id="menu-items"]'),
@@ -12,9 +13,14 @@ const App = {
   },
 
   getGameStatus(moves) {
-    const p1Moves = moves.filter((move) => move.playerId === 1);
-    const p2Moves = moves.filter((move) => move.playerId === 2);
+    const p1Moves = moves
+      .filter((move) => move.playerId === 1)
+      .map((move) => +move.squareId);
+    const p2Moves = moves
+      .filter((move) => move.playerId === 2)
+      .map((move) => +move.squareId);
 
+    console.log(p1Moves);
     const winningPatterns = [
       [1, 2, 3],
       [1, 5, 9],
@@ -25,9 +31,21 @@ const App = {
       [4, 5, 6],
       [7, 8, 9],
     ];
+
+    let winner = null;
+
+    winningPatterns.forEach((pattern) => {
+      const p1Wins = pattern.every((v) => p1Moves.includes(v));
+      const p2Wins = pattern.every((v) => p2Moves.includes(v));
+
+      if (p1Wins) winner = 1;
+      if (p2Wins) winner = 2;
+    });
+
     return {
-      status: "in-progress ",
-      winner: 1, //in-progress | complete
+      status:
+        moves.length === 9 || winner != null ? "complete" : "in-progress ",
+      winner, //in-progress | complete
     };
   },
 
@@ -85,9 +103,17 @@ const App = {
           playerId: currentPlayer,
         });
 
-        App.state.currentPlayer = App.state.currentPlayer === 1 ? 2 : 1;
-        console.log(App.state);
         square.replaceChildren(icon);
+
+        const game = App.getGameStatus(App.state.moves);
+
+        if (game.status === "complete") {
+          if (game.winner) {
+            alert(`Player ${game.winner} wins!`);
+          } else {
+            alert("Tie!");
+          }
+        }
       });
     });
   },
