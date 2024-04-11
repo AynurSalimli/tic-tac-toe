@@ -8,8 +8,7 @@ const App = {
   },
 
   state: {
-    currentPlayer: 1,
-
+    moves: [],
   },
 
   init() {
@@ -26,28 +25,60 @@ const App = {
     App.$.resetBtn.addEventListener("click", (e) => {
       console.log("Reset the game");
     });
+
     //TODO
     App.$.newRoundBtn.addEventListener("click", (e) => {
       console.log("Add a new round");
     });
+
     //TODO
     App.$.squares.forEach((square) => {
       square.addEventListener("click", (e) => {
-        console.log(`Square with id ${e.target.id} was clicked`);
-        console.log(`Current player is ${App.state.currentPlayer}`);
-        const icon = document.createElement("i");
-        const currentPlayer = App.state.currentPlayer
-        if(currentPlayer == 1){
+        const hasMove = (squareId) => {
+          const existingMove = App.state.moves.find(
+            (move) => move.squaredId === squareId
+          );
+          return existingMove !== undefined;
+        };
+        if (hasMove(+square.id)) {
+          return;
+        }
 
-            icon.classList.add("fa-solid", "fa-x", "yellow");
+        //Determine which player icon to add to the square
+        const lastMove = App.state.moves.at(-1);
+        const getOppositePlayer = (playerId) => (playerId === 1 ? 2 : 1);
+        const currentPlayer =
+          App.state.moves.length === 0
+            ? 1
+            : getOppositePlayer(lastMove.playerId);
+
+        const icon = document.createElement("i");
+
+        if (currentPlayer === 1) {
+          icon.classList.add("fa-solid", "fa-x", "yellow");
+        } else {
+          icon.classList.add("fa-solid", "fa-o", "turquoise");
         }
-        else{
-            icon.classList.add("fa-solid", "fa-o", "turquoise");
-            
-        }
-        
+
+        App.state.moves.push({
+          squaredId: +square.id,
+          playerId: currentPlayer,
+        });
+
         App.state.currentPlayer = App.state.currentPlayer === 1 ? 2 : 1;
-        event.target.replaceChildren(icon);
+        console.log(App.state);
+        square.replaceChildren(icon);
+
+        const winningPatterns = [
+          [1, 2, 3],
+          [1, 5, 9],
+          [1, 4, 7],
+          [2, 5, 8],
+          [3, 5, 7],
+          [3, 6, 9],
+          [4, 5, 6],
+          [7, 8, 9],
+        ];
       });
     });
   },
