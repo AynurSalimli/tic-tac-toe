@@ -33,30 +33,36 @@
           </div>
         </div>
         <!-- Game board -->
-        <div class="square shadow"></div>
-        <div class="square shadow"></div>
-        <div class="square shadow"></div>
-        <div class="square shadow"></div>
-        <div class="square shadow"></div>
-        <div class="square shadow"></div>
-        <div class="square shadow"></div>
-        <div class="square shadow"></div>
-        <div class="square shadow"></div>
+        <div id="1" class="square shadow"></div>
+        <div id="2" class="square shadow"></div>
+        <div id="3" class="square shadow"></div>
+        <div id="4" class="square shadow"></div>
+        <div id="5" class="square shadow"></div>
+        <div id="6" class="square shadow"></div>
+        <div id="7" class="square shadow"></div>
+        <div id="8" class="square shadow"></div>
+        <div id="9" class="square shadow"></div>
 
         <!-- Score board -->
         <div class="score shadow" style="background-color: var(--turquoise)">
           <p>Player 1</p>
           <span data-id="player1-stats">0 Wins</span>
         </div>
-         <div class="score shadow" style="background-color: var(--light-gray)">
+        <div class="score shadow" style="background-color: var(--light-gray)">
           <p>Ties</p>
           <span data-id="ties">0 </span>
         </div>
-         <div class="score shadow" style="background-color: var(--yellow)">
+        <div class="score shadow" style="background-color: var(--yellow)">
           <p>Player 2</p>
           <span data-id="player2-stats">0 Wins</span>
         </div>
       </div>
     </main>
+    <div class="modal ">
+      <div class="modal-contents">
+        <p>Player 1 wins</p>
+        <button>Play again</button>
+      </div>
+    </div>
   </body>
 </html>
