@@ -1,11 +1,14 @@
 const App = {
-    
+  //All of our selected HTML elements
   $: {
     menu: document.querySelector('[data-id="menu"]'),
     menuItems: document.querySelector('[data-id="menu-items"]'),
     resetBtn: document.querySelector('[data-id="reset-btn"]'),
     newRoundBtn: document.querySelector('[data-id="new-round-btn"]'),
     squares: document.querySelectorAll('[data-id="square'),
+    modal: document.querySelector('[data-id="modal'),
+    modalText: document.querySelector('[data-id="modal-text'),
+    modalBtn: document.querySelector('[data-id="modal-btn'),
   },
 
   state: {
@@ -108,7 +111,10 @@ const App = {
         const game = App.getGameStatus(App.state.moves);
 
         if (game.status === "complete") {
+          App.$.modal.classList.remove("hidden");
           if (game.winner) {
+            App.$.modal;
+
             alert(`Player ${game.winner} wins!`);
           } else {
             alert("Tie!");
