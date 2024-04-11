@@ -5,10 +5,10 @@ const App = {
     menuItems: document.querySelector('[data-id="menu-items"]'),
     resetBtn: document.querySelector('[data-id="reset-btn"]'),
     newRoundBtn: document.querySelector('[data-id="new-round-btn"]'),
-    squares: document.querySelectorAll('[data-id="square'),
-    modal: document.querySelector('[data-id="modal'),
-    modalText: document.querySelector('[data-id="modal-text'),
-    modalBtn: document.querySelector('[data-id="modal-btn'),
+    squares: document.querySelectorAll('[data-id="square"]'),
+    modal: document.querySelector('[data-id="modal"]'),
+    modalText: document.querySelector('[data-id="modal-text"]'),
+    modalBtn: document.querySelector('[data-id="modal-btn"]'),
   },
 
   state: {
@@ -23,7 +23,6 @@ const App = {
       .filter((move) => move.playerId === 2)
       .map((move) => +move.squareId);
 
-    console.log(p1Moves);
     const winningPatterns = [
       [1, 2, 3],
       [1, 5, 9],
@@ -58,29 +57,36 @@ const App = {
 
   registerEventListeners() {
     //DONE
-    App.$.menu.addEventListener("click", (e) => {
+    App.$.menu.addEventListener("click", (event) => {
       App.$.menuItems.classList.toggle("hidden");
     });
 
     //TODO
-    App.$.resetBtn.addEventListener("click", (e) => {
+    App.$.resetBtn.addEventListener("click", (event) => {
       console.log("Reset the game");
     });
 
     //TODO
-    App.$.newRoundBtn.addEventListener("click", (e) => {
+    App.$.newRoundBtn.addEventListener("click", (event) => {
       console.log("Add a new round");
+    });
+
+    App.$.modalBtn.addEventListener("click", (event) => {
+      App.state.moves = [];
+      App.$.squares.forEach((square) => square.replaceChildren());
+      App.$.modal.classList.add("hidden");
     });
 
     //TODO
     App.$.squares.forEach((square) => {
-      square.addEventListener("click", (e) => {
+      square.addEventListener("click", (event) => {
         const hasMove = (squareId) => {
           const existingMove = App.state.moves.find(
             (move) => move.squaredId === squareId
           );
           return existingMove !== undefined;
         };
+
         if (hasMove(+square.id)) {
           return;
         }
@@ -112,13 +118,15 @@ const App = {
 
         if (game.status === "complete") {
           App.$.modal.classList.remove("hidden");
-          if (game.winner) {
-            App.$.modal;
 
-            alert(`Player ${game.winner} wins!`);
+          let message = "";
+          if (game.winner) {
+            message = `Player ${game.winner} wins!`;
           } else {
-            alert("Tie!");
+            message = "Tie game!";
           }
+
+          App.$.modalText.textContent = message;
         }
       });
     });
