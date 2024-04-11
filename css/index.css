@@ -144,6 +144,11 @@ body header {
     border: 1px solid transparent;
 }
 
+.menu-btn svg{
+    width: 15px;
+    fill: #fff;
+}
+
 .menu-btn:focus,
 .menu-btn:hover {
     background-color: var(--gray);
